@@ -1,0 +1,34 @@
+PODS:
+  - Alamofire (4.8.0)
+  - RxAtomic (4.4.0)
+  - RxCocoa (4.4.0):
+    - RxSwift (~> 4.0)
+  - RxJSON (1.0.0):
+    - RxSwift (>= 4.0.0-beta.0)
+  - RxSwift (4.4.0):
+    - RxAtomic (~> 4.4)
+
+DEPENDENCIES:
+  - Alamofire (~> 4.0)
+  - RxCocoa (~> 4.0)
+  - RxJSON
+  - RxSwift (~> 4.0)
+
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - Alamofire
+    - RxAtomic
+    - RxCocoa
+    - RxJSON
+    - RxSwift
+
+SPEC CHECKSUMS:
+  Alamofire: 3ec537f71edc9804815215393ae2b1a8ea33a844
+  RxAtomic: eacf60db868c96bfd63320e28619fe29c179656f
+  RxCocoa: df63ebf7b9a70d6b4eeea407ed5dd4efc8979749
+  RxJSON: f1f70d66ae6598f88921a8dfc3a90c73442e7fec
+  RxSwift: 5976ecd04fc2fefd648827c23de5e11157faa973
+
+PODFILE CHECKSUM: 107364e89b0fcb374c6835e29ecf58486d2e7ea7
+
+COCOAPODS: 1.5.3
