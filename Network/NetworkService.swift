@@ -49,13 +49,13 @@ class NetworkService {
         }
     }
     
-    func trackDetailRequest(_ trackId: Int) -> Observable<[Detail]> {
+    func trackDetailRequest(_ trackId: Int) -> Observable<[Store]> {
         guard let url = URL(string: "\(DETAIL_URL)\(trackId)") else {return Observable.just([])}
         return URLSession.shared
             .rx.json(request: URLRequest(url: url))
             .retry(3)
             .map {
-                var detail = [Detail]()
+                var detail = [Store]()
                 if let items = $0 as? [String:Any] {
                     if let results = items["results"] as? [[String:Any]] {
                         for dict in results {
@@ -66,7 +66,7 @@ class NetworkService {
                                 let releaseDate = dict["releaseDate"] as? String,
                                 let trackPrice = dict["trackPrice"] as? Double,
                                 let country = dict["country"] as? String {
-                                detail.append(Detail(artistName: artistName, artworkUrl100: artworkUrl100, collectionName: collectionName, country: country, releaseDate:releaseDate, trackName: trackName, trackPrice: trackPrice))
+                                detail.append(Store(trackId: trackId,artistName: artistName, collectionName: collectionName, trackName: trackName, artworkUrl100: artworkUrl100, releaseDate:releaseDate, country: country, trackPrice: trackPrice))
                             }
                         }
                         

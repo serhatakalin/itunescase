@@ -19,7 +19,7 @@ class MainListViewModel {
     init(worker: NetworkService) {
         self.worker = worker
         data = searchText.asObservable()
-            .debounce(1, scheduler: MainScheduler.instance)
+            .throttle(1, scheduler: MainScheduler.instance)
             .distinctUntilChanged()
             .flatMapLatest {worker.searchRequest($0)}
             .asDriver(onErrorJustReturn: [])

@@ -17,38 +17,41 @@ class DetailViewController: UIViewController {
     var trackModel = [String]()
     var artwork: UIImageView = UIImageView()
     var labelView: UIView = UIView()
+    
+    var newLabel: UILabel = UILabel()
+    var newLabel2: UILabel = UILabel()
+    var newLabel3: UILabel = UILabel()
+    var newLabel4: UILabel = UILabel()
+    var newLabel5: UILabel = UILabel()
     let isUrl: Bool = true
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupUI()
         worker.trackDetailRequest(trackId)
             .asObservable()
             .subscribe(onNext: { source in
+               self.trackModel.removeAll()
                 for track in source {
-                    self.trackModel.append(track.artistName)
-                    self.trackModel.append(track.artworkUrl100)
-                    self.trackModel.append(track.collectionName)
-                    self.trackModel.append(track.country)
-                    self.trackModel.append(track.trackName)
-                    self.setSyncTrackDetail(model: self.trackModel)
+                    DispatchQueue.main.async {
+                        self.createLabel(self.newLabel,text: track.artistName, sort: 50)
+                        self.createLabel(self.newLabel2,text: track.collectionName, sort: 100)
+                        self.createLabel(self.newLabel3, text: track.trackName, sort: 150)
+                        self.createLabel(self.newLabel4,text: track.country, sort: 200)
+                        self.createLabel(self.newLabel5, text: "\(track.trackPrice)", sort: 250)
+                        self.createArtwork(imageViewUrl: track.artworkUrl100)
+                    }
                 }
             })
             .disposed(by: disposeBag)
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5){
-            UIView.animate(withDuration: 0.5, animations: {
-                self.setupUI()
-            }, completion: nil)
-        }
+
     }
 
     override func viewDidDisappear(_ animated: Bool) {
         UserDefaults.standard.removeObject(forKey: "trackModel")
     }
     
-    private func bindingLabels() {
-        var details = getSyncTrackDetail()
-        var sortY = 0
+    private func labelViewCreate() {
         labelView.frame = CGRect(x: 0, y: 0, width: view.bounds.width - 20, height: view.bounds.height/2)
         labelView.center = view.center
         labelView.backgroundColor = .black
@@ -56,34 +59,10 @@ class DetailViewController: UIViewController {
         labelView.layer.borderColor = UIColor.blue.cgColor
         labelView.layer.borderWidth = 1.0
         view.addSubview(labelView)
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-            for text in details {
-                sortY = sortY + 50
-                if self.isUrl == details[1].hasPrefix("https://") {
-                   self.createArtwork(imageViewUrl: details[1])
-                }
-                self.createLabel(text: text, superView: self.labelView, sort: CGFloat(sortY))
-                print(details)
-            }
-        }
     }
-    private func setSyncTrackDetail(model: [String]){
-            let track = NSKeyedArchiver.archivedData(withRootObject: model)
-            UserDefaults.standard.set(track, forKey: "trackModel")
-    }
-   private  func getSyncTrackDetail() -> [String] {
-        let trackSource = UserDefaults.standard.object(forKey: "trackModel") as? NSData
-        if let trackSource = trackSource {
-            let track = NSKeyedUnarchiver.unarchiveObject(with: trackSource as Data) as? [String]
-            return track!
-        } else {
-            return [""]
-        }
-        
-    }
+
     private func setupUI(){
-        bindingLabels()
+        labelViewCreate()
         createButton()
     }
     func createArtwork(imageViewUrl: String) {
@@ -116,18 +95,19 @@ class DetailViewController: UIViewController {
         dismiss(animated: true, completion: nil)
     }
     
-    @discardableResult func createLabel(text: String?, superView: UIView, sort: CGFloat) -> UILabel {
-        let newLabel = UILabel()
-        let frame = CGRect(x: 0, y: sort, width: superView.frame.size.width, height: 40)
-        if isUrl != text?.hasPrefix("https://") { newLabel.text = text }
-        newLabel.frame = frame
-        newLabel.textColor = .white
-        newLabel.font = newLabel.font.withSize(16)
-        newLabel.numberOfLines = 4
-        newLabel.textAlignment = .center
-        newLabel.lineBreakMode = .byWordWrapping
-        superView.addSubview(newLabel)
-        return newLabel
+    @discardableResult func createLabel(_ label: UILabel, text: String?, sort: CGFloat) -> UILabel {
+            let frame = CGRect(x: 0, y: sort, width: labelView.frame.size.width, height: 40)
+            label.text = text
+            label.frame = frame
+            label.textColor = .white
+            label.font = label.font.withSize(16)
+            label.numberOfLines = 4
+            label.textAlignment = .center
+            label.lineBreakMode = .byWordWrapping
+            self.labelView.addSubview(label)
+
+        
+         return label
     }
 
 }
