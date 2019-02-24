@@ -14,7 +14,6 @@ class MainListViewController: UIViewController {
     
     let tableView = UITableView()
     var mediaPickerView: UIPickerView = UIPickerView()
-    let cellId = "MainListCell"
     private let worker = NetworkService()
     var viewModel : MainListViewModel?
     let disposeBag = DisposeBag()
@@ -24,22 +23,23 @@ class MainListViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.tableView.frame = self.view.frame
-        self.tableView.delegate = nil
-        self.tableView.dataSource = nil
-        self.view.addSubview(tableView)
-        self.tableView.register(MainListCell.self, forCellReuseIdentifier: cellId)
-        definesPresentationContext = true
+        viewModel = MainListViewModel(worker: self.worker)
+        
+        tableUI()
         searchUI()
         mediaListUI()
-        
-       viewModel = MainListViewModel(worker: self.worker)
-        worker.getMediaList()
+
+        Util.shared.getMediaList()
             .bind(to: mediaPickerView.rx.itemTitles) { _, item in
                 return "\(item)"
             }
             .disposed(by: disposeBag)
         
+        mediaPickerView.rx.modelSelected(String.self)
+            .subscribe(onNext: { _ in
+              self.searchBarReset()
+            })
+            .disposed(by: disposeBag)
 
         if let viewModel = viewModel {
             viewModel.data
@@ -50,42 +50,34 @@ class MainListViewController: UIViewController {
                         NSURL(string: store.artworkUrl100)
                             .flatMap { NSData(contentsOf: $0 as URL) }
                             .flatMap { UIImage(data: $0 as Data) }
+                    cell.imageView?.contentMode = .scaleAspectFit
     
                 }
                 .disposed(by: disposeBag)
+            
                 tableView.rx.modelSelected(Store.self)
                 .subscribe(onNext: { store in
                     if let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "DetailViewController") as? DetailViewController
                     {
-                        self.searchBar.text = ""
-                        if self.searchController.isActive {
-                            self.searchController.dismiss(animated: false)
-                        }
+                        self.searchBarReset()
                         vc.trackId = store.trackId
                         self.present(vc, animated: true, completion: nil)
-                        
                     }
-
                 })
                 .disposed(by: disposeBag)
             
-                mediaPickerView.rx.modelSelected(String.self)
-                .subscribe(onNext: { models in
-                    if let model = models.first {
-                        viewModel.searchText.value = "\(self.searchBar.text ?? "")&media=\(model)"
+              searchBar.rx.text.orEmpty
+                .bind(onNext: { models in
+                    if models.first != nil {
+                        viewModel.searchText.value = "\(self.searchBar.text ?? "")&media=\(Util.shared.getRow(self.mediaPickerView))"
                         self.tableView.reloadData()
                     }
                 })
                 .disposed(by: disposeBag)
-            
-                searchBar.rx.text.orEmpty.bind(to: viewModel.searchText).disposed(by: disposeBag)
-           
         }
         
     }
-  
     func searchUI() {
-        //Search Bar
         searchController.dimsBackgroundDuringPresentation = false
         searchBar.showsCancelButton = true
         searchBar.text = ""
@@ -93,24 +85,36 @@ class MainListViewController: UIViewController {
         tableView.tableHeaderView = searchController.searchBar
 
     }
-    func navigateDetail(){
-        if let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "DetailViewController") as? DetailViewController
-        {
-            
-            self.present(vc, animated: true, completion: nil)
+    func searchBarReset(){
+        self.searchBar.text = ""
+        if self.searchController.isActive {
+            self.searchController.dismiss(animated: false)
         }
+    }
+    func tableUI(){
+        self.tableView.frame = UIScreen.main.bounds
+        self.tableView.delegate = nil
+        self.tableView.dataSource = nil
+        self.view.addSubview(tableView)
+        self.tableView.register(MainListCell.self, forCellReuseIdentifier: cellId)
+        
     }
     func mediaListUI() {
         mediaPickerView.isHidden = false
         mediaPickerView.dataSource = nil
         mediaPickerView.delegate = nil
         mediaPickerView.showsSelectionIndicator = true
-        mediaPickerView.backgroundColor = .gray
-        mediaPickerView.frame.origin.y = UIScreen.main.bounds.height - mediaPickerView.frame.size.height
-        mediaPickerView.frame.size.width = tableView.frame.size.width
+        mediaPickerView.backgroundColor = .white
         self.view.addSubview(mediaPickerView)
         
+        mediaPickerView.translatesAutoresizingMaskIntoConstraints = false
+        mediaPickerView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
+        mediaPickerView.widthAnchor.constraint(equalToConstant: view.frame.width).isActive = true
+        mediaPickerView.heightAnchor.constraint(equalToConstant: 128).isActive = true
+        mediaPickerView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: 0).isActive = true
     }
+    
+
  
 }
 

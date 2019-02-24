@@ -20,14 +20,6 @@ class NetworkService {
         self.session = session
     }
 
-    func getMediaList() -> Observable<[String]> {
-        return Observable.just([
-            "all",
-            "movie",
-            "podcast",
-            "music"
-            ])
-    }
     func searchRequest(_ term:String) -> Observable<[Store]> {
         let searchTerm = term.replacingOccurrences(of: " ", with: "+", options: .caseInsensitive, range: nil)
         guard !term.isEmpty, let url = URL(string: "\(BASE_URL)\(searchTerm)") else {return Observable.just([])}
@@ -50,7 +42,7 @@ class NetworkService {
                                 store.append(Store(trackId: trackId ,artistName: artistName, collectionName: collectionName, trackName: trackName, artworkUrl100: artworkUrl100, releaseDate:releaseDate, country: country, trackPrice: trackPrice))
                                 
                             }
-                        }
+                         }
                         
                     }
                 }

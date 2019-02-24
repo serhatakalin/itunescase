@@ -8,16 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		888DA9C956231D9843E74C87 /* Pods_itunescase.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 704126E354FDDD0BF2440E82 /* Pods_itunescase.framework */; };
-		E4388CAD221CC72B001531EE /* MediaListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4388CAC221CC72B001531EE /* MediaListViewController.swift */; };
-		E4388CB3221CC821001531EE /* MediaListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4388CB2221CC821001531EE /* MediaListViewModel.swift */; };
-		E4388CB5221CC992001531EE /* MediaCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4388CB4221CC992001531EE /* MediaCell.swift */; };
 		E48B1B6D22174C60002F0829 /* MainListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E48B1B6C22174C60002F0829 /* MainListCell.swift */; };
-		E48B1B7122175AE2002F0829 /* MediaTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = E48B1B7022175AE2002F0829 /* MediaTypes.swift */; };
-		E48B1B7322175CE7002F0829 /* SearchItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = E48B1B7222175CE7002F0829 /* SearchItems.swift */; };
-		E48B1B7522175FD4002F0829 /* DetailItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E48B1B7422175FD4002F0829 /* DetailItem.swift */; };
 		E48B1B8D221785ED002F0829 /* MainListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E48B1B8C221785ED002F0829 /* MainListViewModel.swift */; };
 		E49F38F22216FDF300D70101 /* Store.swift in Sources */ = {isa = PBXBuildFile; fileRef = E49F38F12216FDF300D70101 /* Store.swift */; };
 		E4A243802220D13C00ED3BD1 /* Detail.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4A2437F2220D13C00ED3BD1 /* Detail.swift */; };
+		E4A2438A2222276C00ED3BD1 /* Util.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4A243892222276C00ED3BD1 /* Util.swift */; };
 		E4C8225B2216E0ED00E513F8 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4C8225A2216E0ED00E513F8 /* DetailViewController.swift */; };
 		E4C8225E2216E11A00E513F8 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4C8225D2216E11A00E513F8 /* NetworkService.swift */; };
 		E4CC561F2216D4C70091A775 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4CC561E2216D4C70091A775 /* AppDelegate.swift */; };
@@ -30,16 +25,11 @@
 		704126E354FDDD0BF2440E82 /* Pods_itunescase.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_itunescase.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C0D9A9880791D5D8712490AE /* Pods-itunescase.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-itunescase.release.xcconfig"; path = "Pods/Target Support Files/Pods-itunescase/Pods-itunescase.release.xcconfig"; sourceTree = "<group>"; };
 		E20535BA778E107374F49FCB /* Pods-itunescase.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-itunescase.debug.xcconfig"; path = "Pods/Target Support Files/Pods-itunescase/Pods-itunescase.debug.xcconfig"; sourceTree = "<group>"; };
-		E4388CAC221CC72B001531EE /* MediaListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaListViewController.swift; sourceTree = "<group>"; };
-		E4388CB2221CC821001531EE /* MediaListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaListViewModel.swift; sourceTree = "<group>"; };
-		E4388CB4221CC992001531EE /* MediaCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaCell.swift; sourceTree = "<group>"; };
 		E48B1B6C22174C60002F0829 /* MainListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainListCell.swift; sourceTree = "<group>"; };
-		E48B1B7022175AE2002F0829 /* MediaTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaTypes.swift; sourceTree = "<group>"; };
-		E48B1B7222175CE7002F0829 /* SearchItems.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchItems.swift; sourceTree = "<group>"; };
-		E48B1B7422175FD4002F0829 /* DetailItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailItem.swift; sourceTree = "<group>"; };
 		E48B1B8C221785ED002F0829 /* MainListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainListViewModel.swift; sourceTree = "<group>"; };
 		E49F38F12216FDF300D70101 /* Store.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Store.swift; sourceTree = "<group>"; };
 		E4A2437F2220D13C00ED3BD1 /* Detail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Detail.swift; sourceTree = "<group>"; };
+		E4A243892222276C00ED3BD1 /* Util.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Util.swift; sourceTree = "<group>"; };
 		E4C8225A2216E0ED00E513F8 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		E4C8225D2216E11A00E513F8 /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		E4CC561B2216D4C70091A775 /* itunescase.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = itunescase.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -79,14 +69,12 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
-		E4388CAE221CC731001531EE /* MediaList */ = {
+		E4A243882222275900ED3BD1 /* Common */ = {
 			isa = PBXGroup;
 			children = (
-				E4388CAC221CC72B001531EE /* MediaListViewController.swift */,
-				E4388CB2221CC821001531EE /* MediaListViewModel.swift */,
-				E4388CB4221CC992001531EE /* MediaCell.swift */,
+				E4A243892222276C00ED3BD1 /* Util.swift */,
 			);
-			path = MediaList;
+			name = Common;
 			sourceTree = "<group>";
 		};
 		E4C822562216E06300E513F8 /* Main */ = {
@@ -128,6 +116,7 @@
 		E4CC561D2216D4C70091A775 /* itunescase */ = {
 			isa = PBXGroup;
 			children = (
+				E4A243882222275900ED3BD1 /* Common */,
 				E4CC56302216D5160091A775 /* Network */,
 				E4CC56332216D5410091A775 /* ViewController */,
 				E4CC56312216D51D0091A775 /* Models */,
@@ -151,9 +140,6 @@
 			children = (
 				E49F38F12216FDF300D70101 /* Store.swift */,
 				E4A2437F2220D13C00ED3BD1 /* Detail.swift */,
-				E48B1B7022175AE2002F0829 /* MediaTypes.swift */,
-				E48B1B7222175CE7002F0829 /* SearchItems.swift */,
-				E48B1B7422175FD4002F0829 /* DetailItem.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -171,7 +157,6 @@
 			isa = PBXGroup;
 			children = (
 				E4C822562216E06300E513F8 /* Main */,
-				E4388CAE221CC731001531EE /* MediaList */,
 				E4C8225C2216E0FE00E513F8 /* Detail */,
 			);
 			path = ViewController;
@@ -297,17 +282,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				E4CC56212216D4C70091A775 /* MainListViewController.swift in Sources */,
+				E4A2438A2222276C00ED3BD1 /* Util.swift in Sources */,
 				E4CC561F2216D4C70091A775 /* AppDelegate.swift in Sources */,
 				E4A243802220D13C00ED3BD1 /* Detail.swift in Sources */,
-				E4388CB5221CC992001531EE /* MediaCell.swift in Sources */,
 				E4C8225E2216E11A00E513F8 /* NetworkService.swift in Sources */,
 				E4C8225B2216E0ED00E513F8 /* DetailViewController.swift in Sources */,
-				E48B1B7322175CE7002F0829 /* SearchItems.swift in Sources */,
 				E48B1B8D221785ED002F0829 /* MainListViewModel.swift in Sources */,
-				E4388CAD221CC72B001531EE /* MediaListViewController.swift in Sources */,
-				E4388CB3221CC821001531EE /* MediaListViewModel.swift in Sources */,
-				E48B1B7122175AE2002F0829 /* MediaTypes.swift in Sources */,
-				E48B1B7522175FD4002F0829 /* DetailItem.swift in Sources */,
 				E49F38F22216FDF300D70101 /* Store.swift in Sources */,
 				E48B1B6D22174C60002F0829 /* MainListCell.swift in Sources */,
 			);

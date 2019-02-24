@@ -20,7 +20,6 @@ class DetailViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .lightGray
         worker.trackDetailRequest(trackId)
             .asObservable()
             .subscribe(onNext: { source in
@@ -66,11 +65,11 @@ class DetailViewController: UIViewController {
             }
         }
     }
-   private func setSyncTrackDetail(model: [String]){
+    private func setSyncTrackDetail(model: [String]){
             let track = NSKeyedArchiver.archivedData(withRootObject: model)
             UserDefaults.standard.set(track, forKey: "trackModel")
     }
-  private  func getSyncTrackDetail() -> [String] {
+   private  func getSyncTrackDetail() -> [String] {
         let trackSource = UserDefaults.standard.object(forKey: "trackModel") as? NSData
         if let trackSource = trackSource {
             let track = NSKeyedUnarchiver.unarchiveObject(with: trackSource as Data) as? [String]
@@ -91,15 +90,15 @@ class DetailViewController: UIViewController {
             .flatMap { NSData(contentsOf: $0 as URL) }
             .flatMap { UIImage(data: $0 as Data) }
         artwork.center = view.center
+        artwork.contentMode = .scaleAspectFit
         view.addSubview(artwork)
-        
     }
     private func createButton(){
         let newButton = UIButton()
         newButton.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: 64)
         newButton.setTitle("Main", for: .normal)
         newButton.titleLabel?.textColor = .white
-        newButton.backgroundColor = .blue
+        newButton.backgroundColor = .darkGray
         view.addSubview(newButton)
         
         newButton.translatesAutoresizingMaskIntoConstraints = false
