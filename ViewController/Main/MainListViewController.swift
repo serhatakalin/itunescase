@@ -24,13 +24,13 @@ class MainListViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         viewModel = MainListViewModel(worker: self.worker)
-        
+    
         tableUI()
         searchUI()
         mediaListUI()
         rxBind()
     }
-    
+
     func rxBind() {
         Util.shared.getMediaList()
             .bind(to: mediaPickerView.rx.itemTitles) { _, item in
@@ -49,7 +49,7 @@ class MainListViewController: UIViewController {
                 .drive(tableView.rx.items(cellIdentifier: cellId)) { _, store, cell in
                     cell.textLabel?.text = store.trackName
                     cell.detailTextLabel?.text = store.artistName
-                    cell.imageView?.image = nil
+                    cell.imageView?.image = nil 
                     cell.imageView?.image = Util.shared.getArtworks(url: store.artworkUrl100).image
                     cell.imageView?.contentMode = .scaleAspectFit
                 }
@@ -78,11 +78,10 @@ class MainListViewController: UIViewController {
     }
     func searchUI() {
         searchController.dimsBackgroundDuringPresentation = false
-        searchBar.showsCancelButton = true
+        searchBar.showsCancelButton = false
         searchBar.text = ""
         searchBar.placeholder = "Search in iTunes"
         tableView.tableHeaderView = searchController.searchBar
-
     }
     func searchBarReset(){
         self.searchBar.text = ""
@@ -113,9 +112,7 @@ class MainListViewController: UIViewController {
         mediaPickerView.heightAnchor.constraint(equalToConstant: 130).isActive = true
         mediaPickerView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: 0).isActive = true
     }
-    
 
- 
 }
 
 

@@ -29,7 +29,7 @@ class Util {
         image.sd_cancelCurrentImageLoad()
         image.sd_setShowActivityIndicatorView(true)
         image.sd_setIndicatorStyle(.gray)
-        image.sd_setImage(with: URL(string: url), placeholderImage: UIImage(named: "placeholder"), options: .continueInBackground)
+        image.sd_setImage(with: URL(string: url), placeholderImage: UIImage(named: "placeholder"), options: .transformAnimatedImage, progress: nil, completed: nil)
         return image
     }
     func getRow(_ pv: UIPickerView) -> String {

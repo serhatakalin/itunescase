@@ -14,16 +14,14 @@ class DetailViewController: UIViewController {
     private let worker = NetworkService()
     let disposeBag = DisposeBag()
     var trackId: Int = 0
-    var trackModel = [String]()
+    
     var artwork: UIImageView = UIImageView()
     var labelView: UIView = UIView()
-    
     var newLabel: UILabel = UILabel()
     var newLabel2: UILabel = UILabel()
     var newLabel3: UILabel = UILabel()
     var newLabel4: UILabel = UILabel()
     var newLabel5: UILabel = UILabel()
-    let isUrl: Bool = true
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,7 +33,6 @@ class DetailViewController: UIViewController {
         worker.trackDetailRequest(trackId)
             .asObservable()
             .subscribe(onNext: { source in
-                self.trackModel.removeAll()
                 for track in source {
                     DispatchQueue.main.async {
                         self.createLabel(self.newLabel,text: track.artistName, sort: 50)
