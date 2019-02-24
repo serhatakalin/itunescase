@@ -21,11 +21,7 @@ class Util {
             "Podcast",
             "Music",
             "MusicVideo",
-            "Audio Book",
-            "Short Film",
-            "Tv Show",
-            "Software",
-            "Ebook"
+            "Tv Show"
             ])
     }
     func getArtworks(url: String) -> UIImageView {
@@ -48,15 +44,7 @@ class Util {
         case 4:
             return mediaTypes.musicVideo.rawValue
         case 5:
-            return mediaTypes.audioBook.rawValue
-        case 6:
-            return mediaTypes.shortFilm.rawValue
-        case 7:
             return mediaTypes.tvShow.rawValue
-        case 8:
-            return mediaTypes.software.rawValue
-        case 9:
-            return mediaTypes.eBook.rawValue
         default:
             return mediaTypes.all.rawValue
         }
@@ -69,9 +57,5 @@ class Util {
     case podcast = "podcast"
     case music = "music"
     case musicVideo = "musicVideo"
-    case audioBook = "audioBook"
-    case shortFilm = "shortFilm"
     case tvShow = "tvShow"
-    case software = "software"
-    case eBook = "ebook"
 }
