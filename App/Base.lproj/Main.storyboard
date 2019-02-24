@@ -28,7 +28,7 @@
         <!--Detail View Controller-->
         <scene sceneID="7jY-OR-sm6">
             <objects>
-                <viewController id="vE9-0C-ILy" customClass="DetailViewController" customModule="itunescase" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="DetailViewController" id="vE9-0C-ILy" customClass="DetailViewController" customModule="itunescase" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="FSN-uq-Y0N">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

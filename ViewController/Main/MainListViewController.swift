@@ -10,7 +10,7 @@ import UIKit
 import RxSwift
 import RxCocoa
 
-final class MainListViewController: UIViewController {
+class MainListViewController: UIViewController {
     
     let tableView = UITableView()
     var mediaPickerView: UIPickerView = UIPickerView()
@@ -29,12 +29,11 @@ final class MainListViewController: UIViewController {
         self.tableView.dataSource = nil
         self.view.addSubview(tableView)
         self.tableView.register(MainListCell.self, forCellReuseIdentifier: cellId)
-        
+        definesPresentationContext = true
         searchUI()
         mediaListUI()
         
        viewModel = MainListViewModel(worker: self.worker)
-        
         worker.getMediaList()
             .bind(to: mediaPickerView.rx.itemTitles) { _, item in
                 return "\(item)"
@@ -54,9 +53,19 @@ final class MainListViewController: UIViewController {
     
                 }
                 .disposed(by: disposeBag)
-                tableView.rx.itemSelected
-                .subscribe(onNext: { indexPath in
-                    print(indexPath)
+                tableView.rx.modelSelected(Store.self)
+                .subscribe(onNext: { store in
+                    if let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "DetailViewController") as? DetailViewController
+                    {
+                        self.searchBar.text = ""
+                        if self.searchController.isActive {
+                            self.searchController.dismiss(animated: false)
+                        }
+                        vc.trackId = store.trackId
+                        self.present(vc, animated: true, completion: nil)
+                        
+                    }
+
                 })
                 .disposed(by: disposeBag)
             
@@ -69,27 +78,28 @@ final class MainListViewController: UIViewController {
                 })
                 .disposed(by: disposeBag)
             
-                searchBar
-                .rx
-                .text
-                .orEmpty
-                .bind(to: viewModel.searchText)
-                .disposed(by: disposeBag)
+                searchBar.rx.text.orEmpty.bind(to: viewModel.searchText).disposed(by: disposeBag)
            
         }
         
     }
-
+  
     func searchUI() {
         //Search Bar
         searchController.dimsBackgroundDuringPresentation = false
         searchBar.showsCancelButton = true
-        searchBar.text = "Castle"
+        searchBar.text = ""
         searchBar.placeholder = "Search in iTunes"
         tableView.tableHeaderView = searchController.searchBar
 
     }
-
+    func navigateDetail(){
+        if let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "DetailViewController") as? DetailViewController
+        {
+            
+            self.present(vc, animated: true, completion: nil)
+        }
+    }
     func mediaListUI() {
         mediaPickerView.isHidden = false
         mediaPickerView.dataSource = nil
@@ -100,20 +110,9 @@ final class MainListViewController: UIViewController {
         mediaPickerView.frame.size.width = tableView.frame.size.width
         self.view.addSubview(mediaPickerView)
         
-        // ToolBar
-//        let toolBar = UIToolbar()
-//        toolBar.barStyle = .default
-//        toolBar.isTranslucent = true
-//        toolBar.tintColor = UIColor(red: 92/255, green: 216/255, blue: 255/255, alpha: 1)
-//        toolBar.sizeToFit()
-//
-//        // Adding Button ToolBar
-//        let doneButton = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(self.doneClick))
-//        let spaceButton = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
-////        let cancelButton = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(self.cancelClick))
-//        toolBar.setItems([spaceButton, doneButton], animated: false)
-//        toolBar.isUserInteractionEnabled = true
     }
+ 
 }
+
 
 
