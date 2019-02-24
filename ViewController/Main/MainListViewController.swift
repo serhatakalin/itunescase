@@ -28,7 +28,10 @@ class MainListViewController: UIViewController {
         tableUI()
         searchUI()
         mediaListUI()
-
+        rxBind()
+    }
+    
+    func rxBind() {
         Util.shared.getMediaList()
             .bind(to: mediaPickerView.rx.itemTitles) { _, item in
                 return "\(item)"
@@ -37,10 +40,10 @@ class MainListViewController: UIViewController {
         
         mediaPickerView.rx.modelSelected(String.self)
             .subscribe(onNext: { _ in
-              self.searchBarReset()
+                self.searchBarReset()
             })
             .disposed(by: disposeBag)
-
+        
         if let viewModel = viewModel {
             viewModel.data
                 .drive(tableView.rx.items(cellIdentifier: cellId)) { _, store, cell in
@@ -52,7 +55,7 @@ class MainListViewController: UIViewController {
                 }
                 .disposed(by: disposeBag)
             
-                tableView.rx.modelSelected(Store.self)
+            tableView.rx.modelSelected(Store.self)
                 .subscribe(onNext: { store in
                     if let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "DetailViewController") as? DetailViewController
                     {
@@ -63,7 +66,7 @@ class MainListViewController: UIViewController {
                 })
                 .disposed(by: disposeBag)
             
-              searchBar.rx.text.orEmpty
+            searchBar.rx.text.orEmpty
                 .bind(onNext: { models in
                     if models.first != nil {
                         viewModel.searchText.value = "\(self.searchBar.text ?? "")&media=\(Util.shared.getRow(self.mediaPickerView))"
@@ -72,7 +75,6 @@ class MainListViewController: UIViewController {
                 })
                 .disposed(by: disposeBag)
         }
-        
     }
     func searchUI() {
         searchController.dimsBackgroundDuringPresentation = false
