@@ -69,12 +69,12 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
-		E4A243882222275900ED3BD1 /* Common */ = {
+		E4BED5132222EA9E00728AB9 /* Common */ = {
 			isa = PBXGroup;
 			children = (
 				E4A243892222276C00ED3BD1 /* Util.swift */,
 			);
-			name = Common;
+			path = Common;
 			sourceTree = "<group>";
 		};
 		E4C822562216E06300E513F8 /* Main */ = {
@@ -116,7 +116,7 @@
 		E4CC561D2216D4C70091A775 /* itunescase */ = {
 			isa = PBXGroup;
 			children = (
-				E4A243882222275900ED3BD1 /* Common */,
+				E4BED5132222EA9E00728AB9 /* Common */,
 				E4CC56302216D5160091A775 /* Network */,
 				E4CC56332216D5410091A775 /* ViewController */,
 				E4CC56312216D51D0091A775 /* Models */,
