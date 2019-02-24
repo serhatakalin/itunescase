@@ -7,7 +7,7 @@
 //
 
 import RxSwift
-
+import SDWebImage
 
 let cellId = "MainListCell"
 
@@ -28,10 +28,16 @@ class Util {
             "Ebook"
             ])
     }
-    
+    func getArtworks(url: String) -> UIImageView {
+        let image = UIImageView()
+        image.sd_cancelCurrentImageLoad()
+        image.sd_setShowActivityIndicatorView(true)
+        image.sd_setIndicatorStyle(.gray)
+        image.sd_setImage(with: URL(string: url), placeholderImage: UIImage(named: "placeholder"), options: .continueInBackground)
+        return image
+    }
     func getRow(_ pv: UIPickerView) -> String {
         let list = pv.selectedRow(inComponent: 0)
-        print(list)
         switch list {
         case 1:
             return mediaTypes.movie.rawValue
@@ -55,10 +61,9 @@ class Util {
             return mediaTypes.all.rawValue
         }
     }
+ }
 
-}
-
-public enum mediaTypes: String {
+ public enum mediaTypes: String {
     case all = "all"
     case movie = "movie"
     case podcast = "podcast"
@@ -69,5 +74,4 @@ public enum mediaTypes: String {
     case tvShow = "tvShow"
     case software = "software"
     case eBook = "ebook"
-    
 }

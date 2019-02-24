@@ -7,14 +7,12 @@
 //
 
 import Foundation
-import Network
 import RxSwift
 
 let BASE_URL = "https://itunes.apple.com/search?term="
 let DETAIL_URL = "https://itunes.apple.com/lookup?id="
 
 class NetworkService {
-    
     private let session: URLSession
     init(session: URLSession = URLSession.shared) {
         self.session = session
@@ -25,7 +23,7 @@ class NetworkService {
         guard !term.isEmpty, let url = URL(string: "\(BASE_URL)\(searchTerm)") else {return Observable.just([])}
         return URLSession.shared
             .rx.json(request: URLRequest(url: url))
-            .retry(1)
+            .retry(3)
             .map {
                 var store = [Store]()
                 if let items = $0 as? [String:Any] {
@@ -55,7 +53,7 @@ class NetworkService {
         guard let url = URL(string: "\(DETAIL_URL)\(trackId)") else {return Observable.just([])}
         return URLSession.shared
             .rx.json(request: URLRequest(url: url))
-            .retry(1)
+            .retry(3)
             .map {
                 var detail = [Detail]()
                 if let items = $0 as? [String:Any] {
@@ -73,8 +71,7 @@ class NetworkService {
                         }
                         
                     }
-                }
-                
+                } 
                 return detail
         }
     }

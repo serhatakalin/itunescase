@@ -46,12 +46,9 @@ class MainListViewController: UIViewController {
                 .drive(tableView.rx.items(cellIdentifier: cellId)) { _, store, cell in
                     cell.textLabel?.text = store.trackName
                     cell.detailTextLabel?.text = store.artistName
-                    cell.imageView?.image =
-                        NSURL(string: store.artworkUrl100)
-                            .flatMap { NSData(contentsOf: $0 as URL) }
-                            .flatMap { UIImage(data: $0 as Data) }
+                    cell.imageView?.image = nil
+                    cell.imageView?.image = Util.shared.getArtworks(url: store.artworkUrl100).image
                     cell.imageView?.contentMode = .scaleAspectFit
-    
                 }
                 .disposed(by: disposeBag)
             
@@ -99,6 +96,7 @@ class MainListViewController: UIViewController {
         self.tableView.register(MainListCell.self, forCellReuseIdentifier: cellId)
         
     }
+
     func mediaListUI() {
         mediaPickerView.isHidden = false
         mediaPickerView.dataSource = nil

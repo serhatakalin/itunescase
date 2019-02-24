@@ -17,6 +17,7 @@ class DetailViewController: UIViewController {
     var trackModel = [String]()
     var artwork: UIImageView = UIImageView()
     var labelView: UIView = UIView()
+    let isUrl: Bool = true
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -56,12 +57,14 @@ class DetailViewController: UIViewController {
         labelView.layer.borderWidth = 1.0
         view.addSubview(labelView)
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
             for text in details {
                 sortY = sortY + 50
-                self.createArtwork(imageViewUrl: details[1])
+                if self.isUrl == details[1].hasPrefix("https://") {
+                   self.createArtwork(imageViewUrl: details[1])
+                }
                 self.createLabel(text: text, superView: self.labelView, sort: CGFloat(sortY))
-                
+                print(details)
             }
         }
     }
@@ -83,12 +86,10 @@ class DetailViewController: UIViewController {
         bindingLabels()
         createButton()
     }
-    private func createArtwork(imageViewUrl: String) {
+    func createArtwork(imageViewUrl: String) {
         artwork.frame = CGRect(x: 0, y: 0, width: labelView.frame.size.width, height: labelView.frame.size.height)
         artwork.alpha = 0.2
-        artwork.image = NSURL(string: imageViewUrl)
-            .flatMap { NSData(contentsOf: $0 as URL) }
-            .flatMap { UIImage(data: $0 as Data) }
+        artwork.image = Util.shared.getArtworks(url: imageViewUrl).image
         artwork.center = view.center
         artwork.contentMode = .scaleAspectFit
         view.addSubview(artwork)
@@ -99,6 +100,7 @@ class DetailViewController: UIViewController {
         newButton.setTitle("Main", for: .normal)
         newButton.titleLabel?.textColor = .white
         newButton.backgroundColor = .darkGray
+        newButton.layer.cornerRadius = 5
         view.addSubview(newButton)
         
         newButton.translatesAutoresizingMaskIntoConstraints = false
@@ -117,8 +119,7 @@ class DetailViewController: UIViewController {
     @discardableResult func createLabel(text: String?, superView: UIView, sort: CGFloat) -> UILabel {
         let newLabel = UILabel()
         let frame = CGRect(x: 0, y: sort, width: superView.frame.size.width, height: 40)
-        let range = text?.hasPrefix("https://")
-        if range != true { newLabel.text = text }
+        if isUrl != text?.hasPrefix("https://") { newLabel.text = text }
         newLabel.frame = frame
         newLabel.textColor = .white
         newLabel.font = newLabel.font.withSize(16)
