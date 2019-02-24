@@ -28,10 +28,14 @@ class DetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
+        rxBind()
+    }
+    
+    private func rxBind(){
         worker.trackDetailRequest(trackId)
             .asObservable()
             .subscribe(onNext: { source in
-               self.trackModel.removeAll()
+                self.trackModel.removeAll()
                 for track in source {
                     DispatchQueue.main.async {
                         self.createLabel(self.newLabel,text: track.artistName, sort: 50)
@@ -44,13 +48,7 @@ class DetailViewController: UIViewController {
                 }
             })
             .disposed(by: disposeBag)
-
     }
-
-    override func viewDidDisappear(_ animated: Bool) {
-        UserDefaults.standard.removeObject(forKey: "trackModel")
-    }
-    
     private func labelViewCreate() {
         labelView.frame = CGRect(x: 0, y: 0, width: view.bounds.width - 20, height: view.bounds.height/2)
         labelView.center = view.center
@@ -105,8 +103,6 @@ class DetailViewController: UIViewController {
             label.textAlignment = .center
             label.lineBreakMode = .byWordWrapping
             self.labelView.addSubview(label)
-
-        
          return label
     }
 
