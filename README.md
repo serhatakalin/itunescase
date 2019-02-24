@@ -1,1 +1,2 @@
-itunescase
+- itunescase without storyboard.
+- fully programmatically.
