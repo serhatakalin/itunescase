@@ -110,7 +110,7 @@ class MainListViewController: UIViewController {
         mediaPickerView.translatesAutoresizingMaskIntoConstraints = false
         mediaPickerView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
         mediaPickerView.widthAnchor.constraint(equalToConstant: view.frame.width).isActive = true
-        mediaPickerView.heightAnchor.constraint(equalToConstant: 128).isActive = true
+        mediaPickerView.heightAnchor.constraint(equalToConstant: 130).isActive = true
         mediaPickerView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: 0).isActive = true
     }
     
