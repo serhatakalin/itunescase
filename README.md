@@ -1,4 +1,4 @@
-- itunescase 
+- searching in iTunes.
 - fully programmatically layouts, no storyboard.
 - Swift 4.2
 - RxSwift and RxCocoa are used for network service and model binding.
